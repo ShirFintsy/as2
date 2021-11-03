@@ -69,7 +69,6 @@ Line linear_reg(Point** points, int size) {
     }
     float a = cov(pointsX, pointsY, size) / var(pointsX, size);
     float b = find_avr(pointsY, size) - a * find_avr(pointsX, size);
-    //float b = var(pointsY, size) - a * var(pointsX, size);
     Line l(a, b);
     return l;
 }
