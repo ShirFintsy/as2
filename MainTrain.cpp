@@ -59,7 +59,7 @@ void checkCorrelationTrain(correlatedFeatures c,string f1, string f2, float a, f
 
 }
 
-int main(){
+/*int main(){
     srand (time(NULL));
     float a1=1+rand()%10, b1=-50+rand()%100;
     float a2=1+rand()%20 , b2=-50+rand()%100;
@@ -108,7 +108,7 @@ int main(){
 
     cout<<"done"<<endl;
     return 0;
-}
+}*/
 
 #include <iostream>
 #include <vector>
@@ -122,7 +122,7 @@ int main(){
 using namespace std;
 
 // this is a simple test to put you on the right track
-void generateTrainCSV(float a1,float b1, float a2, float b2){
+/*void generateTrainCSV(float a1,float b1, float a2, float b2){
     ofstream out("trainFile1.csv");
     out<<"A,B,C,D"<<endl;
     Line ac(a1,b1);
@@ -221,4 +221,4 @@ int main(){
 }//
 // Created by shir25 on 11/2/21.
 //
-
+*/
