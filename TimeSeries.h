@@ -10,6 +10,7 @@ using namespace std;
 class TimeSeries{
     const char* fileName;
     vector<vector<string>> features;
+    int numOfFeatures;
 public:
     TimeSeries(const char* CSVfileName){
         fileName = CSVfileName;
@@ -31,6 +32,12 @@ public:
     }
     void set_vector_by_location(int vectorNum, int timeIndex, string info) {
         features[vectorNum][timeIndex] = info;
+    }
+    void setFeatureSize(int size) {
+        this->numOfFeatures = size;
+    }
+    int getFeatureSize() const {
+        return numOfFeatures;
     }
 
 };
