@@ -3,5 +3,4 @@ project(advEx2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(advEx2 MainTrain.cpp AnomalyDetector.h SimpleAnomalyDetector.h SimpleAnomalyDetector.cpp TimeSeries.h
-        TimeSeries.cpp anomaly_detection_util.h anomaly_detection_util.cpp tests.cpp)
+add_executable(advEx2 SimpleAnomalyDetector.cpp SimpleAnomalyDetector.h timeseries.cpp TimeSeries.h MainTrain.cpp AnomalyDetector.h)
