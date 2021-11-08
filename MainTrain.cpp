@@ -10,7 +10,7 @@
 #include <math.h>
 
 using namespace std;
-
+/*
 // this is a simple test to put you on the right track
 void generateTrainCSV(float a1,float b1, float a2, float b2){
     ofstream out("trainFile1.csv");
@@ -109,16 +109,20 @@ int main(){
     cout<<"done"<<endl;
     return 0;
 }
-
-/*int main() {
+*/
+int main() {
     TimeSeries tryOut("test.csv");
     for (int i = 0; i < 5; i ++) {
-        cout << "name:" << tryOut.headLines[i] << " - ";
+        cout << "name:" << tryOut.get_headlines()[i] << " - ";
         for (int j = 0; j < 3; j++) {
-            cout << tryOut.columns[i][j] << ",";
+            cout << tryOut.get_columns()[i][j] << ",";
         }
         cout<<endl;
     }
+    cout << tryOut.get_num_columns() << endl;
+    cout << tryOut.get_column_by_head("ohad")[2] << endl;
+    cout << tryOut.get_column_by_loc(0)[1] << endl;
+    cout << tryOut.get_head_line_by_loc(0) << endl;
     return 0;
-}*/
+}
 

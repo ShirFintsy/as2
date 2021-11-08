@@ -12,48 +12,48 @@ TimeSeries::TimeSeries(const char* CSVfileName) : csvFname(CSVfileName){
     string item;
     // insert each headline to the corresponding column:
     while (getline(streamHeadline, item, ',')) {
-        this->headLines.push_back(item);
+        set_headlines(item);
     }
-    this->num_columns = headLines.size();
+    set_num_columns(get_headlines().size()); // check it.
     string line;
     // create the specific number of columns:
     for (int i = 0; i < num_columns; i ++) {
-        this->columns.emplace_back();
+        set_columns_size();
     }
     // read each line in the file:
     while (std::getline(myFile, line)) {
         istringstream streamLine(line);
         // check the line is valid:
-        if(count(line.begin(), line.end(), ',') != this->num_columns - 1) {
+        if(count(line.begin(), line.end(), ',') != get_num_columns() - 1) {
             throw runtime_error("table is invalid");
         }
         // insert value to each column:
-        for (int i = 0; i < this->num_columns; i++) {
+        for (unsigned int i = 0; i < get_num_columns(); i++) {
             getline(streamLine, item, ',');
             float num = stof(item);
-            this->columns[i].push_back(num);
+            set_columns_by_loc(num, i);
         }
     }
 }
 
-vector<float> TimeSeries::get_column(string headLine) {
+vector<float> TimeSeries::get_column_by_head(string headLine) const {
     for (int i = 0; i < this->num_columns; i++)
         if (this->headLines[i] == headLine)
             return this->columns[i];
     throw runtime_error("this headline is not in the file");
 }
-vector<float> TimeSeries::get_column(int num) {
+vector<float> TimeSeries::get_column_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->columns[num];
 }
 
-string TimeSeries::get_head_line(int num) {
+string TimeSeries::get_head_line_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
-    return this->num_columns[num];
+    return this->headLines[num];
 }
 
-unsigned int TimeSeries::get_num_columns() {
+unsigned int TimeSeries::get_num_columns() const {
     return this->num_columns;
 }
