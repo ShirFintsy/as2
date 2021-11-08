@@ -1,61 +1,59 @@
-#include <fstream>
-#include <iostream>
 #include "TimeSeries.h"
 
-void read_file(TimeSeries ts) {
-    const char* fileName = ts.get_file();
-    // Read from the text file
-    std::fstream fs;
-    fs.open (fileName, std::fstream::in | std::fstream::out | std::fstream::app);
-    if (!fs) {
-        cout << "Unable to open file";
+TimeSeries::TimeSeries(const char* CSVfileName) : csvFname(CSVfileName){
+    // open the file and check if valid:
+    ifstream myFile(csvFname);
+    if(!myFile.is_open()) throw std::runtime_error("Could not open file");
+    string stringHeadLine;
+    // get the first line of the file (the headlines):
+    getline(myFile, stringHeadLine);
+    // convert the string to stream:
+    istringstream streamHeadline(stringHeadLine);
+    string item;
+    // insert each headline to the corresponding column:
+    while (getline(streamHeadline, item, ',')) {
+        set_headlines(item);
     }
-    std::string myLine;
-    int lineNum = 1;
-    int numOfFeatures = 0;
-    // Use a while loop with the getline() function to read the file line by line
-    while (getline (fs, myLine)) {
-        vector<string> features;
-        if (lineNum == 1) { //the first line
-            features = splits_by_comma(myLine); // the names of the features
-            numOfFeatures = (int)features.size(); // the number of features
-            ts.setFeatureSize(numOfFeatures);
-            // add the vectors to the big vector in the ts. and also adding in 0 location in the vector the name of
-            // every feature.
-            for (int i = 0; i < numOfFeatures; ++i) {
-                ts.add_vector(vector<string>(1));
-                ts.set_vector_by_location(i, 0, features[i]);
-            }
-        } else { //read all other line that are not the titles of the features.
-            vector<string> allInfo = splits_by_comma(myLine);
-            // put all the information in the vector of every feature we create in the last loop
-            for(int i = 0; i < numOfFeatures; i++) {
-                ts.set_vector(i, allInfo[i]);
-            }
-        } lineNum++;
+    set_num_columns(get_headlines().size()); // check it.
+    string line;
+    // create the specific number of columns:
+    for (int i = 0; i < num_columns; i ++) {
+        set_columns_size();
     }
-    fs.close();
+    // read each line in the file:
+    while (std::getline(myFile, line)) {
+        istringstream streamLine(line);
+        // check the line is valid:
+        if(count(line.begin(), line.end(), ',') != get_num_columns() - 1) {
+            throw runtime_error("table is invalid");
+        }
+        // insert value to each column:
+        for (unsigned int i = 0; i < get_num_columns(); i++) {
+            getline(streamLine, item, ',');
+            float num = stof(item);
+            set_columns_by_loc(num, i);
+        }
+    }
 }
-/*
- * This function splits the text given by commas in the text.
- * Return a vector of all the parts of the text without the commas.
- * ###########need to check it###################
- */
-vector<std::string> splits_by_comma(string text) {
-    string temp = "";
-    vector<string> splits;
 
-    for (int i=0; i<(int)text.size(); i++){
-        // If cur char is not del, then append it to the cur "word", otherwise
-        // you have completed the word, print it, and start a new word.
-        if(text[i] != ','){
-            temp += text[i];
-        }
-        else{
-            splits.push_back(temp);
-            temp = "";
-        }
-    }
-    splits.push_back(temp);
-    return splits;
+vector<float> TimeSeries::get_column_by_head(string headLine) const {
+    for (int i = 0; i < this->num_columns; i++)
+        if (this->headLines[i] == headLine)
+            return this->columns[i];
+    throw runtime_error("this headline is not in the file");
+}
+vector<float> TimeSeries::get_column_by_loc(int num) const{
+    if (num < 0 || num > this->num_columns)
+        throw runtime_error("the number of the column is invalid");
+    return this->columns[num];
+}
+
+string TimeSeries::get_head_line_by_loc(int num) const{
+    if (num < 0 || num > this->num_columns)
+        throw runtime_error("the number of the column is invalid");
+    return this->headLines[num];
+}
+
+unsigned int TimeSeries::get_num_columns() const {
+    return this->num_columns;
 }
