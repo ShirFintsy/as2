@@ -54,6 +54,4 @@ string TimeSeries::get_head_line_by_loc(int num) const{
     return this->headLines[num];
 }
 
-unsigned int TimeSeries::get_num_columns() const {
-    return this->num_columns;
-}
+

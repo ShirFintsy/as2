@@ -21,12 +21,21 @@ private:
 
     string csvFname;
 public:
+    // consturctor:
+    TimeSeries(const char* CSVfileName);
     // getters:
     vector<vector<float>> get_columns() const {
         return this->columns;
     }
     vector<string> get_headlines() const {
         return this->headLines;
+    }
+    /**
+     * this function returns the number of columns in the table.
+     * @return
+     */
+    int get_num_columns() const {
+        return this->num_columns;
     }
     // stters:
     void set_columns_size(){
@@ -41,19 +50,13 @@ public:
     void set_columns_by_loc (float num, unsigned int i) {
         this->columns[i].push_back(num);
     }
-    // consturctor:
-    TimeSeries(const char* CSVfileName);
     /**
      * this function return a specific column by its headline.
      * @param headLine.
      * @return specific column.
      */
     vector<float> get_column_by_head(string headLine) const;
-    /**
-     * this function returns the number of columns in the table.
-     * @return
-     */
-    unsigned int get_num_columns() const;
+
     /**
      * this function return a specific headline by its number.
      * @param num .
