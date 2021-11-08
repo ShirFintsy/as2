@@ -12,6 +12,7 @@ class TimeSeries{
     vector<vector<string>> features;
     int numOfFeatures;
 public:
+    //constructor
     TimeSeries(const char* CSVfileName){
         fileName = CSVfileName;
     }
@@ -21,7 +22,7 @@ public:
     void add_vector(vector<string> f) {
         features.push_back(f);
     }
-    vector<vector<string>> get_vector() {
+    vector<vector<string>> get_vector() const {
         return features;
     }
     vector<string> get_vector_by_location(int vectorNum) {

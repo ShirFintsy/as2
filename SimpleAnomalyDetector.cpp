@@ -18,7 +18,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts){
         int m = 0;
         int c = -1;
         for (int j = i + 1; j < ts.getFeatureSize(); ++j) {
-            if (pearson, ))///////////////////////i stoped in the middle.
+            if (pearson())///////////////////////i stoped in the middle.
         }
     }
 }
