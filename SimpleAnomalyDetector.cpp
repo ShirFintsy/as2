@@ -32,13 +32,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
              * add the correlated feature we found to the vector of correlated features of the time series
              */
             struct correlatedFeatures cor;
-            cor.feature1 = ts.get_head_line_by_loc(i);
-            cor.feature2 = ts.get_head_line_by_loc(c);
-            cor.corrlation = pear;
-            cor.lin_reg = find_linear_reg(cor, ts);
-            Point** p = find_points_of_correlated_features(cor, ts);
-            cor.threshold = max_threshold(p, cor.lin_reg,ts.get_column_by_head(cor.feature1).size());
-            cf.push_back(cor);
+            create_cor_feature(cor, ts, pear, i ,c);
             flag = 1;
         }
     }
@@ -111,6 +105,33 @@ float max_threshold (Point** points, Line line, int size) {
 
 }
 
+void create_cor_feature (struct correlatedFeatures& cor, TimeSeries ts, float pear, int i, int c) {
+    if (i != -1 && c != -1) {
+        cor.feature1 = ts.get_head_line_by_loc(i);
+        cor.feature2 = ts.get_head_line_by_loc(c);
+    }
+    cor.corrlation = pear;
+    cor.lin_reg = find_linear_reg(cor, ts);
+    Point** p = find_points_of_correlated_features(cor, ts);
+    cor.threshold = max_threshold(p, cor.lin_reg,ts.get_column_by_head(cor.feature1).size());
+}
+
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
-    // TODO Auto-generated destructor stub
+    vector<AnomalyReport> reports;
+    long counter = 1;
+    for (correlatedFeatures i : this->cf) {
+        correlatedFeatures tested_cor;
+        tested_cor.feature1 = i.feature1;
+        tested_cor.feature2 = i.feature2;
+        float* arrayI = from_vector_to_array(ts.get_column_by_head(i.feature1));
+        float* arrayJ = from_vector_to_array(ts.get_column_by_head(i.feature2));
+        float pear = abs(pearson(arrayI, arrayJ, (int)ts.get_num_columns()));
+        create_cor_feature(tested_cor, ts, pear, -1, -1);
+        if (tested_cor.threshold > i.threshold) {
+            AnomalyReport single_report(tested_cor.feature1 + "-" + tested_cor.feature2, counter);
+            reports.push_back(single_report);
+        }
+        counter++;
+    }
+    return reports;
 }
