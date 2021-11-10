@@ -88,7 +88,7 @@ Point** find_points_of_correlated_features (struct correlatedFeatures c, TimeSer
         // create point from line i in feature 1 and line i in feature 2.
         Point *p = new Point(ts.get_column_by_head(c.feature1)[i],
                              ts.get_column_by_head(c.feature2)[i]);
-        pointsArray[i] = p; //////
+        pointsArray[i] = p;
     }
     return pointsArray;
 }
