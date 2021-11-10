@@ -1,5 +1,9 @@
 #include <cstdio>
-
+/*
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
+ */
 // returns the variance of X and Y
 float var(float* x, int size);
 

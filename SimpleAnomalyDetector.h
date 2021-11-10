@@ -1,4 +1,8 @@
-
+/*
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
+ */
 
 #ifndef SIMPLEANOMALYDETECTOR_H_
 #define SIMPLEANOMALYDETECTOR_H_

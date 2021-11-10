@@ -1,4 +1,8 @@
-
+/*
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
+ */
 #include "SimpleAnomalyDetector.h"
 
 
@@ -8,7 +12,10 @@ SimpleAnomalyDetector::~SimpleAnomalyDetector() {
     // TODO Auto-generated destructor stub
 }
 
-
+/**
+ * This function responsible about the learn part (learn the normal)
+ * @param ts - time series with the normal info
+ */
 void SimpleAnomalyDetector::learnNormal(const timeseries& ts) {
     /*
      * find the correlated features in the time series- checking every couple of features.
@@ -41,11 +48,8 @@ void SimpleAnomalyDetector::learnNormal(const timeseries& ts) {
         cout << "There is no correlated features at all.";
         exit;
     }
-    //debug:
-//    cout << "features: " << cf[0].feature1 << cf[0].feature2 << endl;
-//    cout << "threshold :" << cf[0].threshold << endl;
-//    cout << "corralation :" << cf[0].corrlation;
 }
+
 /**
  * This function return the linear reg of the points of the correlated features.
  * @param c - the correlatedFeatures contain the info about the features
@@ -108,6 +112,13 @@ float max_threshold (Point** points, Line line, int size) {
 
 }
 
+/**
+ * This function return the line in the correlated features that create the maximum threshold
+ * @param points - the points of the correlated features in the graph
+ * @param line - the linear reg line
+ * @param size - num of points
+ * @return num of line
+ */
 int return_timeStep(Point** points, Line line, int size) {
     float maxThreshold = 0;
     int currLine = 0;
@@ -121,6 +132,14 @@ int return_timeStep(Point** points, Line line, int size) {
     return currLine;
 }
 
+/**
+ * This function initilaied all fiels in correlatedFeatures class- to crean a new one.
+ * @param cor - the object we want to create.
+ * @param ts - time series
+ * @param pear - the correlation
+ * @param i - feature 1
+ * @param c - feature 2
+ */
 void create_cor_feature (struct correlatedFeatures& cor, timeseries ts, float pear, int i, int c) {
     if (i != -1 && c != -1) {
         cor.feature1 = ts.get_head_line_by_loc(i);
@@ -133,7 +152,11 @@ void create_cor_feature (struct correlatedFeatures& cor, timeseries ts, float pe
     cor.line = return_timeStep(p, cor.lin_reg,ts.get_column_by_head(cor.feature1).size());
 }
 
-
+/**
+ * This function responsible about the test part (detect exceptions)
+ * @param ts -time series
+ * @return a vector contain all exceptions (AnomalyReport)
+ */
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const timeseries& ts){
     vector<AnomalyReport> reports;
     for (correlatedFeatures i : this->cf) {

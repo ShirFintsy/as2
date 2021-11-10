@@ -1,4 +1,8 @@
-
+/*
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
+ */
 
 #ifndef TIMESERIES_H_
 #define TIMESERIES_H_

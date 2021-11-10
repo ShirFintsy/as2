@@ -2,8 +2,9 @@
 #include <ctgmath>
 
 /*
- * Assignment 1
- * Name: Shir Fintsy & Ohad Marmur
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
  */
 float find_avr(float* x, int size);
 /*

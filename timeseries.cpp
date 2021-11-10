@@ -1,5 +1,15 @@
+/*
+ * Assignment 2
+ * Shir Fintsy 206949075
+ * Ohad Marmor 207481524
+ */
+
 #include "timeseries.h"
 
+/**
+ * Constructor.
+ * @param CSVfileName - file name
+ */
 timeseries::timeseries(const char* CSVfileName) : csvFname(CSVfileName){
     // open the file and check if valid:
     ifstream myFile(csvFname);
@@ -36,18 +46,34 @@ timeseries::timeseries(const char* CSVfileName) : csvFname(CSVfileName){
     }
 }
 
+/**
+ * This function find vector of feature by the feature name.
+ * @param headLine - feature name (column in file)
+ * @return vector of feature.
+ */
 vector<float> timeseries::get_column_by_head(string headLine) const {
     for (int i = 0; i < this->num_columns; i++)
         if (this->headLines[i] == headLine)
             return this->columns[i];
     throw runtime_error("this headline is not in the file");
 }
+
+/**
+ * This function find vector of feature by location in all vectors.
+ * @param num - location
+ * @return vector of feature.
+ */
 vector<float> timeseries::get_column_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->columns[num];
 }
 
+/**
+ * This function return the name of the feature by location in all vectors.
+ * @param num - location
+ * @return name of require feature
+ */
 string timeseries::get_head_line_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
