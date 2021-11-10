@@ -12,7 +12,7 @@
 using namespace std;
 
 // this is a simple test to put you on the right track
-/*void generateTrainCSV(float a1,float b1, float a2, float b2){
+void generateTrainCSV(float a1,float b1, float a2, float b2){
     ofstream out("trainFile1.csv");
     out<<"A,B,C,D"<<endl;
     Line ac(a1,b1);
@@ -108,11 +108,11 @@ int main(){
 
     cout<<"done"<<endl;
     return 0;
-}*/
+}
 
-int main() {
+/*int main() {
     TimeSeries tryOut("table.txt");
-    /*for (int i = 0; i < 5; i ++) {
+    for (int i = 0; i < 5; i ++) {
         cout << "name:" << tryOut.get_headlines()[i] << " - ";
         for (int j = 0; j < 3; j++) {
             cout << tryOut.get_columns()[i][j] << ",";
@@ -122,9 +122,9 @@ int main() {
     cout << tryOut.get_num_columns() << endl;
     cout << tryOut.get_column_by_head("ohad")[2] << endl;
     cout << tryOut.get_column_by_loc(0)[1] << endl;
-    cout << tryOut.get_head_line_by_loc(0) << endl;*/
+    cout << tryOut.get_head_line_by_loc(0) << endl;
     SimpleAnomalyDetector sa;
     sa.learnNormal(tryOut);
     return 0;
-}
+}*/
 

@@ -16,6 +16,7 @@ struct correlatedFeatures{
     float corrlation; // correlation > 0.9
     Line lin_reg;
     float threshold; //היסט max
+    int line;
 };
 
 
@@ -31,15 +32,13 @@ public:
     vector<correlatedFeatures> getNormalModel(){
         return cf;
     }
-//    void add_correlated_feature(struct correlatedFeatures c) {
-//        cf.push_back(c);
-//    }
 
 };
 Point** find_points_of_correlated_features (struct correlatedFeatures c, TimeSeries ts);
 float* from_vector_to_array(vector<float> feature);
 Line find_linear_reg (struct correlatedFeatures c, TimeSeries ts);
 float max_threshold (Point** points, Line line, int size);
+int return_timeStep(Point** points, Line line, int size);
 
 void create_cor_feature(struct correlatedFeatures& cor, TimeSeries ts, float pear, int i, int c);
 #endif /* SIMPLEANOMALYDETECTOR_H_ */
