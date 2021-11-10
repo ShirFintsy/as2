@@ -9,7 +9,7 @@ SimpleAnomalyDetector::~SimpleAnomalyDetector() {
 }
 
 
-void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
+void SimpleAnomalyDetector::learnNormal(const timeseries& ts) {
     /*
      * find the correlated features in the time series- checking every couple of features.
      */
@@ -52,7 +52,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
  * @param ts - time series
  * @return line return from linear_reg
  */
-Line find_linear_reg (struct correlatedFeatures c, TimeSeries ts) {
+Line find_linear_reg (struct correlatedFeatures c, timeseries ts) {
     int sizeOfFeature = ts.get_column_by_head(c.feature1).size();
     Point** pointsArray = find_points_of_correlated_features(c, ts);
     Line l = linear_reg(pointsArray, sizeOfFeature);
@@ -76,7 +76,7 @@ float* from_vector_to_array(vector<float> feature) {
  * @param ts - time series
  * @return array of pointer to points
  */
-Point** find_points_of_correlated_features (struct correlatedFeatures c, TimeSeries ts) {
+Point** find_points_of_correlated_features (struct correlatedFeatures c, timeseries ts) {
     int sizeOfFeature = ts.get_column_by_head(c.feature1).size();
     Point** pointsArray = new Point*[sizeOfFeature];
     for (int i = 0; i < sizeOfFeature; i++) {
@@ -121,7 +121,7 @@ int return_timeStep(Point** points, Line line, int size) {
     return currLine;
 }
 
-void create_cor_feature (struct correlatedFeatures& cor, TimeSeries ts, float pear, int i, int c) {
+void create_cor_feature (struct correlatedFeatures& cor, timeseries ts, float pear, int i, int c) {
     if (i != -1 && c != -1) {
         cor.feature1 = ts.get_head_line_by_loc(i);
         cor.feature2 = ts.get_head_line_by_loc(c);
@@ -134,7 +134,7 @@ void create_cor_feature (struct correlatedFeatures& cor, TimeSeries ts, float pe
 }
 
 
-vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
+vector<AnomalyReport> SimpleAnomalyDetector::detect(const timeseries& ts){
     vector<AnomalyReport> reports;
     for (correlatedFeatures i : this->cf) {
         correlatedFeatures testedCor;

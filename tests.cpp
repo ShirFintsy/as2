@@ -1,5 +1,5 @@
 #include <iostream>
-#include "TimeSeries.h"
+#include "timeseries.h"
 
 /*int main() {
     char* name= "table.txt";

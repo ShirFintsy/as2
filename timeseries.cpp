@@ -1,6 +1,6 @@
-#include "TimeSeries.h"
+#include "timeseries.h"
 
-TimeSeries::TimeSeries(const char* CSVfileName) : csvFname(CSVfileName){
+timeseries::timeseries(const char* CSVfileName) : csvFname(CSVfileName){
     // open the file and check if valid:
     ifstream myFile(csvFname);
     if(!myFile.is_open()) throw std::runtime_error("Could not open file");
@@ -36,19 +36,19 @@ TimeSeries::TimeSeries(const char* CSVfileName) : csvFname(CSVfileName){
     }
 }
 
-vector<float> TimeSeries::get_column_by_head(string headLine) const {
+vector<float> timeseries::get_column_by_head(string headLine) const {
     for (int i = 0; i < this->num_columns; i++)
         if (this->headLines[i] == headLine)
             return this->columns[i];
     throw runtime_error("this headline is not in the file");
 }
-vector<float> TimeSeries::get_column_by_loc(int num) const{
+vector<float> timeseries::get_column_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->columns[num];
 }
 
-string TimeSeries::get_head_line_by_loc(int num) const{
+string timeseries::get_head_line_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->headLines[num];
