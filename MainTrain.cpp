@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <vector>
 #include "AnomalyDetector.h"
@@ -12,7 +10,7 @@
 using namespace std;
 
 // this is a simple test to put you on the right track
-/*void generateTrainCSV(float a1,float b1, float a2, float b2){
+void generateTrainCSV(float a1,float b1, float a2, float b2){
     ofstream out("trainFile1.csv");
     out<<"A,B,C,D"<<endl;
     Line ac(a1,b1);
@@ -75,7 +73,6 @@ int main(){
     SimpleAnomalyDetector ad;
     ad.learnNormal(ts);
     vector<correlatedFeatures> cf=ad.getNormalModel();
-
     if(cf.size()!=2)
         cout<<"wrong size of correlated features (-40)"<<endl;
     else
@@ -108,10 +105,13 @@ int main(){
 
     cout<<"done"<<endl;
     return 0;
-}*/
-
+}
+//
+// Created by shir25 on 11/2/21.
+//
+/*
 int main() {
-    TimeSeries tryOut("table.txt");
+    TimeSeries tryOut("test.csv");
     /*for (int i = 0; i < 5; i ++) {
         cout << "name:" << tryOut.get_headlines()[i] << " - ";
         for (int j = 0; j < 3; j++) {
@@ -122,9 +122,10 @@ int main() {
     cout << tryOut.get_num_columns() << endl;
     cout << tryOut.get_column_by_head("ohad")[2] << endl;
     cout << tryOut.get_column_by_loc(0)[1] << endl;
-    cout << tryOut.get_head_line_by_loc(0) << endl;*/
+    cout << tryOut.get_head_line_by_loc(0) << endl;
     SimpleAnomalyDetector sa;
     sa.learnNormal(tryOut);
+    sa.detect(tryOut);
     return 0;
-}
+}*/
 

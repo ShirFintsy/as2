@@ -33,6 +33,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts) {
              */
             struct correlatedFeatures cor;
             create_cor_feature(cor, ts, pear, i ,c);
+            this->cf.push_back(cor);
             flag = 1;
         }
     }
