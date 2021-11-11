@@ -14,7 +14,7 @@
 #include <algorithm>
 using namespace std;
 
-class timeseries{
+class TimeSeries{
 private:
     // the array with headlines of each column:
     vector<string> headLines;
@@ -26,7 +26,7 @@ private:
     string csvFname;
 public:
     // consturctor:
-    timeseries(const char* CSVfileName);
+    TimeSeries(const char* CSVfileName);
     // getters:
     vector<vector<float>> get_columns() const {
         return this->columns;

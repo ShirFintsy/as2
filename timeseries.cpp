@@ -10,7 +10,7 @@
  * Constructor.
  * @param CSVfileName - file name
  */
-timeseries::timeseries(const char* CSVfileName) : csvFname(CSVfileName){
+TimeSeries::TimeSeries(const char* CSVfileName) : csvFname(CSVfileName){
     // open the file and check if valid:
     ifstream myFile(csvFname);
     if(!myFile.is_open()) throw std::runtime_error("Could not open file");
@@ -51,7 +51,7 @@ timeseries::timeseries(const char* CSVfileName) : csvFname(CSVfileName){
  * @param headLine - feature name (column in file)
  * @return vector of feature.
  */
-vector<float> timeseries::get_column_by_head(string headLine) const {
+vector<float> TimeSeries::get_column_by_head(string headLine) const {
     for (int i = 0; i < this->num_columns; i++)
         if (this->headLines[i] == headLine)
             return this->columns[i];
@@ -63,7 +63,7 @@ vector<float> timeseries::get_column_by_head(string headLine) const {
  * @param num - location
  * @return vector of feature.
  */
-vector<float> timeseries::get_column_by_loc(int num) const{
+vector<float> TimeSeries::get_column_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->columns[num];
@@ -74,7 +74,7 @@ vector<float> timeseries::get_column_by_loc(int num) const{
  * @param num - location
  * @return name of require feature
  */
-string timeseries::get_head_line_by_loc(int num) const{
+string TimeSeries::get_head_line_by_loc(int num) const{
     if (num < 0 || num > this->num_columns)
         throw runtime_error("the number of the column is invalid");
     return this->headLines[num];
